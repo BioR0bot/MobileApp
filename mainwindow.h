@@ -1,11 +1,13 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
+#include "ui_mainwindow.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+
+class AppDataManager;
+class ConnectIndicator;
+class DatachannelThread;
+class mTimer;
 
 class MainWindow : public QMainWindow
 {
@@ -15,7 +17,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void AdjustGeometry();
+    void InitWidgets();
+
 private:
-    Ui::MainWindow *ui;
+    void UpdateWindgets();
+
+
+private:
+    Ui::MainWindow                     mUi;
+    std::shared_ptr<AppDataManager>    mAppDataManager;
+    std::shared_ptr<ConnectIndicator>  mConnectIndicator;
+    std::shared_ptr<DatachannelThread> mDatachannelThread;
+    std::shared_ptr<QTimer>            mTimer;
+
 };
-#endif // MAINWINDOW_H
