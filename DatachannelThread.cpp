@@ -36,8 +36,6 @@ void DatachannelThread::Stop()
 
 void DatachannelThread::RestartIfNeed()
 {
-    mAppDataManager->SetIsConnectToRobot(!mNeedToRestart.load());
-
     if(mNeedToRestart.load())
     {
         mNeedToRestart.store(false);
@@ -142,6 +140,7 @@ void DatachannelThread::ThreadFunction()
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
         mNeedToRestart.store(true);
+        mAppDataManager->SetIsConnectToRobot(false);
         return;
     }
 
@@ -150,6 +149,7 @@ void DatachannelThread::ThreadFunction()
     if(connectStatus != ConnectStatus::CONNECTED)
     {
         mNeedToRestart.store(true);
+        mAppDataManager->SetIsConnectToRobot(false);
         return;
     }
 
@@ -192,12 +192,15 @@ void DatachannelThread::ThreadFunction()
      int millisecPast = 0;
      const int millisecStep = 10;
 
+     mAppDataManager->SetIsConnectToRobot(true);
+
      while(!mIsStopped.load())
      {
          if(connectStatus != ConnectStatus::CONNECTED)
          {
              std::this_thread::sleep_for(std::chrono::milliseconds(500));
              mNeedToRestart.store(true);
+             mAppDataManager->SetIsConnectToRobot(false);
              return;
          }
 
@@ -212,6 +215,7 @@ void DatachannelThread::ThreadFunction()
              catch (...)
              {
                  mNeedToRestart.store(true);
+                 mAppDataManager->SetIsConnectToRobot(false);
                  return;
              }
          }
@@ -221,6 +225,7 @@ void DatachannelThread::ThreadFunction()
              if(millisecPast > 4000)
              {
                  mNeedToRestart.store(true);
+                 mAppDataManager->SetIsConnectToRobot(false);
                  return;
              }
          }
