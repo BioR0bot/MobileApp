@@ -2,6 +2,7 @@
 
 #include <string>
 #include <mutex>
+#include <atomic>
 
 class AppDataManager
 {
@@ -21,6 +22,6 @@ private:
     std::mutex mLogDataMutex;
     std::string mLogData;
 
-    std::mutex mIsConnectToRobotMutex;
-    bool mIsConnectToRobot;
+
+    std::atomic_bool mIsConnectToRobot;
 };

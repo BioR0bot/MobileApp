@@ -23,12 +23,10 @@ void AppDataManager::GetLogData(std::string &val)
 
 bool AppDataManager::GetIsConnectToRobot()
 {
-    std::lock_guard<std::mutex> lock(mIsConnectToRobotMutex);
-    return mIsConnectToRobot;
+    return mIsConnectToRobot.load();
 }
 
 void AppDataManager::SetIsConnectToRobot(bool val)
 {
-    std::lock_guard<std::mutex> lock(mIsConnectToRobotMutex);
-    mIsConnectToRobot = val;
+    mIsConnectToRobot.store(val);
 }

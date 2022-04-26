@@ -20,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent)
     mUi.horizontalLayout->setStretch(0, 10);
     mUi.horizontalLayout->setStretch(1, 1);
 
+
+    mDatachannelThread->Start();
+
     mTimer->singleShot(10, this, &MainWindow::UpdateWindgets);
 }
 
@@ -44,7 +47,7 @@ void MainWindow::UpdateWindgets()
 
 
 
-//    mDatachannelThread->RestartIfNeed();
+    mDatachannelThread->RestartIfNeed();
 
 
 //    std::string logData;

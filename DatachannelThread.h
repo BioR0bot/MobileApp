@@ -36,6 +36,11 @@ private:
 
 private:
     void ThreadFunction();
+    void WaitForWebSockConnection(int millisecWait, const ConnectStatus& connectStatus) const;
+    std::shared_ptr<rtc::PeerConnection> CreatePeerConnection(const rtc::Configuration &config, std::weak_ptr<rtc::WebSocket> wws, std::string id,
+                                                              std::shared_ptr<AppDataManager> appDataManager,
+                                                              std::unordered_map<std::string, std::shared_ptr<rtc::PeerConnection>>& peerConnectionMap,
+                                                              std::unordered_map<std::string, std::shared_ptr<rtc::DataChannel>>& dataChannelMap);
 
 
 private:
