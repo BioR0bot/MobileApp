@@ -17,8 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
     mTimer = std::make_shared<QTimer>(this);
 
     mUi.horizontalLayout->addWidget(mConnectIndicator.get());
-    mUi.horizontalLayout->setStretch(0, 10);
-    mUi.horizontalLayout->setStretch(1, 1);
+    mUi.horizontalLayout->setStretch(0, 1);
+    mUi.horizontalLayout->setStretch(1, 10);
+    mUi.horizontalLayout->setStretch(2, 1);
 
 
     mDatachannelThread->Start();
@@ -50,9 +51,9 @@ void MainWindow::UpdateWindgets()
     mDatachannelThread->RestartIfNeed();
 
 
-//    std::string logData;
-//    mAppDataManager->GetLogData(logData);
-//    ui->lblLogOutput->setText(QString::fromStdString(logData));
+    std::string logData;
+    mAppDataManager->GetLogData(logData);
+    mUi.lblDebugLog->setText(QString::fromStdString(logData));
 
     mTimer->singleShot(10, this, &MainWindow::UpdateWindgets);
 }

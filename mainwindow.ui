@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,8">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="10">
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,10">
       <property name="spacing">
        <number>0</number>
       </property>
@@ -32,6 +32,13 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblDebugLog">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
