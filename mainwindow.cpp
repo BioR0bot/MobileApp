@@ -3,8 +3,10 @@
 #include "ConnectIndicator.h"
 #include "AppDataManager.h"
 #include "DatachannelThread.h"
+#include "Utils.h"
 #include <qtimer.h>
 #include <QDebug>
+#include <opencv2/imgcodecs.hpp>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -44,16 +46,22 @@ void MainWindow::InitWidgets()
 
 void MainWindow::UpdateWindgets()
 {
-    mConnectIndicator->Update();
-
-
-
     mDatachannelThread->RestartIfNeed();
-
+    mConnectIndicator->Update();
 
     std::string logData;
     mAppDataManager->GetLogData(logData);
     mUi.lblDebugLog->setText(QString::fromStdString(logData));
+
+    std::vector<unsigned char> buffer;
+    bool bufferUpdated = mAppDataManager->GetReceivedBuffer(buffer);
+    if(bufferUpdated)
+    {
+        cv::Mat surveillanceFrame = cv::imdecode(buffer, cv::IMREAD_UNCHANGED);
+        mUi.lblSurveillanceFrame->setPixmap(CvMatToQPixmap(surveillanceFrame));
+    }
+
+
 
     mTimer->singleShot(10, this, &MainWindow::UpdateWindgets);
 }

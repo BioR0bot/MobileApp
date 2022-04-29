@@ -182,6 +182,8 @@ void DatachannelThread::ThreadFunction()
          }
          else
          {
+             std::vector<unsigned char> buffer = reinterpret_cast<std::vector<unsigned char> &&>(std::get<rtc::binary>(data));
+             appDataManager->SetReceivedBuffer(buffer);
              //std::cout << "Binary message from " << id << " received, size=" << std::get<rtc::binary>(data).size() << std::endl;
          }
      });
@@ -191,8 +193,6 @@ void DatachannelThread::ThreadFunction()
 
      int millisecPast = 0;
      const int millisecStep = 10;
-
-     mAppDataManager->SetIsConnectToRobot(true);
 
      while(!mIsStopped.load())
      {
@@ -218,6 +218,8 @@ void DatachannelThread::ThreadFunction()
                  mAppDataManager->SetIsConnectToRobot(false);
                  return;
              }
+
+             mAppDataManager->SetIsConnectToRobot(true);
          }
          else
          {
@@ -314,6 +316,8 @@ std::shared_ptr<rtc::PeerConnection> DatachannelThread::CreatePeerConnection(con
             }
             else
             {
+                std::vector<unsigned char> buffer = reinterpret_cast<std::vector<unsigned char> &&>(std::get<rtc::binary>(data));
+                appDataManager->SetReceivedBuffer(buffer);
                 //std::cout << "Binary message from " << id << " received, size=" << std::get<rtc::binary>(data).size() << std::endl;
             }
         });

@@ -15,9 +15,12 @@ CONFIG += c++17 \
 
 INCLUDEPATH += "$$PWD/ThirdParty/build/libdatachannel/include" \
                "$$PWD/ThirdParty/src/libdatachannel/deps/json/single_include" \
+               "$$PWD/ThirdParty/build/opencv/jni/include" \
 
 LIBS += -L"$$PWD/ThirdParty/build/libdatachannel/lib" \
         -ldatachannel \
+        -L"$$PWD/ThirdParty/build/opencv/libs/armeabi-v7a" \
+        -lopencv_java4 \
 
 SOURCES += \
     AppDataManager.cpp \

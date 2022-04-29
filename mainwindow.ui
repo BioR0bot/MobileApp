@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,8">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,10">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,10">
       <property name="spacing">
@@ -43,9 +43,13 @@
      </layout>
     </item>
     <item>
-     <widget class="QWidget" name="widget" native="true">
+     <widget class="QLabel" name="lblSurveillanceFrame">
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(186, 189, 182);</string>
+       <string notr="true">background-color: rgb(211, 215, 207);
+color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </item>

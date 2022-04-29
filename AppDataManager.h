@@ -3,6 +3,7 @@
 #include <string>
 #include <mutex>
 #include <atomic>
+#include <vector>
 
 class AppDataManager
 {
@@ -11,6 +12,11 @@ public:
 
     void SetLogData(const std::string& val);
     void GetLogData(std::string& val);
+
+    void SetReceivedBuffer(const std::vector<unsigned char>& buffer);
+    bool GetReceivedBuffer(std::vector<unsigned char>& buffer);
+
+
     bool GetIsConnectToRobot();
     void SetIsConnectToRobot(bool val);
 
@@ -21,6 +27,10 @@ public:
 private:
     std::mutex mLogDataMutex;
     std::string mLogData;
+
+    std::mutex mReceivedBufferMutex;
+    std::vector<unsigned char> mReceivedBuffer;
+    bool mReceivedBufferChanged;
 
 
     std::atomic_bool mIsConnectToRobot;
